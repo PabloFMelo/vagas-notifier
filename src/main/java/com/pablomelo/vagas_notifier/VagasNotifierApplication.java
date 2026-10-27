@@ -1,8 +1,6 @@
 package com.pablomelo.vagas_notifier;
 
-import com.pablomelo.vagas_notifier.github.GitHubIssue;
-import com.pablomelo.vagas_notifier.github.GitHubService;
-import com.pablomelo.vagas_notifier.telegram.TelegramService;
+import com.pablomelo.vagas_notifier.vaga.VagaService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,14 +16,8 @@ public class VagasNotifierApplication {
 	}
 
 	@Bean
-	CommandLineRunner enviarVagas(GitHubService gitHubService, TelegramService telegramService) {
-		return args -> {
-			List<GitHubIssue> vagas = gitHubService.buscarVagas();
-
-			for (GitHubIssue vaga : vagas) {
-				telegramService.enviarMensagem(vaga.title() + "\n" + vaga.url());
-			}
-		};
+	CommandLineRunner processarVagas(VagaService vagaService) {
+		return args -> vagaService.processarNovasVagas();
 	}
 
 }

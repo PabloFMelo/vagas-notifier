@@ -1,6 +1,13 @@
 spring:
   application:
     name: vagas-notifier
+  datasource:
+    url: jdbc:postgresql://localhost:5433/vagas
+    username: vagas
+    password: ${VAGAS_DB_PASSWORD:vagas}
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 telegram:
   bot:
