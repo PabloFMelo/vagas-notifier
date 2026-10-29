@@ -4,6 +4,7 @@ import com.pablomelo.vagas_notifier.github.GitHubIssue;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Component
 public class FiltroVagas {
@@ -34,5 +35,9 @@ public class FiltroVagas {
 
         return properties.palavrasChave().stream()
                 .anyMatch(palavra -> texto.contains(palavra.toLowerCase()));
+    }
+    private boolean contemPalavra(String texto, String palavra) {
+        String regex = "(?<![\\p{L}\\p{N}])" + Pattern.quote(palavra) + "(?![\\p{L}\\p{N}])";
+        return Pattern.compile(regex).matcher(texto).find();
     }
 }
