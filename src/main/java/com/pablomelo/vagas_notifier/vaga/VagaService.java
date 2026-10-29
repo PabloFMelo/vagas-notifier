@@ -1,5 +1,6 @@
 package com.pablomelo.vagas_notifier.vaga;
 
+import com.pablomelo.vagas_notifier.filtro.FiltroVagas;
 import com.pablomelo.vagas_notifier.github.GitHubIssue;
 import com.pablomelo.vagas_notifier.github.GitHubService;
 import com.pablomelo.vagas_notifier.telegram.TelegramService;
@@ -13,13 +14,16 @@ public class VagaService {
     private final GitHubService gitHubService;
     private final TelegramService telegramService;
     private final VagaRepository vagaRepository;
+    private final FiltroVagas filtroVagas;
 
     public VagaService(GitHubService gitHubService,
                        TelegramService telegramService,
-                       VagaRepository vagaRepository) {
+                       VagaRepository vagaRepository,
+                       FiltroVagas filtroVagas) {
         this.gitHubService = gitHubService;
         this.telegramService = telegramService;
         this.vagaRepository = vagaRepository;
+        this.filtroVagas = filtroVagas;
 
     }
 
@@ -30,6 +34,10 @@ public class VagaService {
 
         for (GitHubIssue issue : gitHubService.buscarVagas()) {
             if (vagaRepository.existsByGithubId(issue.id())) {
+                continue;
+            }
+
+            if (!filtroVagas.aceita(issue)) {
                 continue;
             }
 

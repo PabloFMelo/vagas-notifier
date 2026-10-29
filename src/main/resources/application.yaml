@@ -16,3 +16,10 @@ telegram:
     id: ${TELEGRAM_CHAT_ID}
 vagas:
   intervalo-busca: PT15M
+  filtro:
+    palavras-chave:
+      - java
+      - spring
+      - junior
+      - estágio
+    labels-excluidas:
