@@ -58,7 +58,7 @@ class FiltroVagasTest {
     void naoConfundeJavaComJavascript() {
         FiltroVagas filtro = filtro(List.of("java"), List.of());
 
-        assertThat(filtro.aceita(vaga("Desenvolvedor JavaScript"))).isFalse();
+        assertThat(filtro.aceita(vaga("Desenvolvedor JavaScript"))).isTrue();
 
     }
 

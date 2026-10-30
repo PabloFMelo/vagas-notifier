@@ -19,6 +19,10 @@ public class VagaScheduler {
     @Scheduled(fixedDelayString = "${vagas.intervalo-busca}")
     public void executar() {
         log.info("Iniciando busca de novas vagas...");
-        vagaService.processarNovasVagas();
+        try {
+            vagaService.processarNovasVagas();
+        } catch (Exception e) {
+            log.error("Falha na busca de vagas. Nova tentativa no próximo ciclo.", e);
+        }
     }
 }
