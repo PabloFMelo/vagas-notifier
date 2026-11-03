@@ -1,0 +1,9 @@
+telegram:
+  bot:
+    token: token-de-teste
+  chat:
+    id: "0"
+
+vagas:
+  agendamento:
+    habilitado: false
